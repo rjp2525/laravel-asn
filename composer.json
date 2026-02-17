@@ -1,0 +1,74 @@
+{
+    "name": "rjp2525/laravel-asn",
+    "description": "IP ASN utility package for laravel",
+    "keywords": [
+        "rjp2525",
+        "laravel-asn"
+    ],
+    "homepage": "https://github.com/rjp2525/laravel-asn",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Reno Philibert",
+            "email": "hello@reno.sh",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "illuminate/cache": "^11.0|^12.0",
+        "illuminate/console": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "illuminate/http": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0",
+        "illuminate/validation": "^11.0|^12.0",
+        "spatie/laravel-package-tools": "^1.16"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.0",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "spatie/ray": "^1.28"
+    },
+    "autoload": {
+        "psr-4": {
+            "Reno\\ASN\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Reno\\ASN\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Reno\\ASN\\AsnServiceProvider"
+            ],
+            "aliases": {
+                "Asn": "Reno\\ASN\\Facades\\Asn",
+                "AsnDns": "Reno\\ASN\\Facades\\AsnDns"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
