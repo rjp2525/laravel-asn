@@ -14,7 +14,7 @@ return [
     | defined in the provider class map section directly below this one.
     |
     */
-    'provider' => env('ASN_PROVIDER', 'bgpview'),
+    'provider' => env('ASN_PROVIDER', 'ripestat'),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,8 +27,8 @@ return [
     |
     */
     'providers' => [
-        'bgpview' => \Reno\ASN\Providers\BgpViewProvider::class,
         'ripestat' => \Reno\ASN\Providers\RipeStatProvider::class,
+        'ipinfo' => \Reno\ASN\Providers\IpInfoProvider::class,
     ],
 
     /*
@@ -91,6 +91,20 @@ return [
     */
     'batch' => [
         'chunk_size' => (int) env('ASN_BATCH_CHUNK_SIZE', 1000),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | IPinfo Configuration
+    |--------------------------------------------------------------------------
+    |
+    | When using the IPinfo provider, you must supply an API token. You can
+    | obtain one by signing up at https://ipinfo.io. Set it via the env
+    | variable below or directly in this configuration array.
+    |
+    */
+    'ipinfo' => [
+        'token' => env('ASN_IPINFO_TOKEN'),
     ],
 
 ];

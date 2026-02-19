@@ -8,7 +8,6 @@ use Reno\ASN\Contracts\AsnProvider;
 use Reno\ASN\Data\AsnInfo;
 use Reno\ASN\Data\AsnResult;
 use Reno\ASN\Exceptions\AsnLookupException;
-use Reno\ASN\Providers\BgpViewProvider;
 use Reno\ASN\Providers\RipeStatProvider;
 
 class StubCustomProvider implements AsnProvider
@@ -81,12 +80,7 @@ it('throws for an invalid provider name', function (): void {
 })->throws(AsnLookupException::class, 'Unsupported ASN provider: does-not-exist');
 
 it('still resolves default providers when providers config is set', function (): void {
-    // BgpView (default)
-    $this->app->forgetInstance(AsnProvider::class);
-    expect(resolve(AsnProvider::class))->toBeInstanceOf(BgpViewProvider::class);
-
-    // RipeStat
-    config(['asn.provider' => 'ripestat']);
+    // RipeStat (default)
     $this->app->forgetInstance(AsnProvider::class);
     expect(resolve(AsnProvider::class))->toBeInstanceOf(RipeStatProvider::class);
 });

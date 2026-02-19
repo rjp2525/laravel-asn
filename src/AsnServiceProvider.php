@@ -37,7 +37,7 @@ final class AsnServiceProvider extends PackageServiceProvider
     {
         $this->app->singleton(AsnProvider::class, function ($app): AsnProvider {
             /** @var string $provider */
-            $provider = config('asn.provider', 'bgpview');
+            $provider = config('asn.provider', 'ripestat');
 
             /** @var HttpClient $http */
             $http = $app->make(HttpClient::class);
@@ -56,7 +56,10 @@ final class AsnServiceProvider extends PackageServiceProvider
 
             $class = $providerMap[$provider] ?? throw AsnLookupException::invalidProvider($provider);
 
-            return new $class($http, $timeout, $retryTimes, $retryDelay);
+            return match ($provider) {
+                'ipinfo' => new $class($http, $timeout, $retryTimes, $retryDelay, is_string($token = config('asn.ipinfo.token')) ? $token : ''),
+                default => new $class($http, $timeout, $retryTimes, $retryDelay),
+            };
         });
 
         $this->app->singleton(AsnManager::class, function ($app): AsnManager {
