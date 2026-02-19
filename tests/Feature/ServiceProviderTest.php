@@ -7,7 +7,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Reno\ASN\AsnManager;
 use Reno\ASN\Contracts\AsnProvider;
 use Reno\ASN\DomainResolver;
-use Reno\ASN\Providers\BgpViewProvider;
+use Reno\ASN\Providers\RipeStatProvider;
 
 it('registers the ASN manager as a singleton', function (): void {
     $manager = resolve(AsnManager::class);
@@ -16,10 +16,10 @@ it('registers the ASN manager as a singleton', function (): void {
         ->and(resolve(AsnManager::class))->toBe($manager);
 });
 
-it('resolves the default provider as BgpView', function (): void {
+it('resolves the default provider as RipeStat', function (): void {
     $provider = resolve(AsnProvider::class);
 
-    expect($provider)->toBeInstanceOf(BgpViewProvider::class);
+    expect($provider)->toBeInstanceOf(RipeStatProvider::class);
 });
 
 it('registers the asn alias', function (): void {

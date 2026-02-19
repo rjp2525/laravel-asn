@@ -240,8 +240,8 @@ php artisan asn:domain cloudflare.com --check-asn=13335
 
 ```php
 return [
-    // ASN data provider: "bgpview" or "ripestat"
-    'provider' => env('ASN_PROVIDER', 'bgpview'),
+    // ASN data provider: "ripestat" or "ipinfo"
+    'provider' => env('ASN_PROVIDER', 'ripestat'),
 
     'cache' => [
         'enabled' => env('ASN_CACHE_ENABLED', true),
@@ -259,6 +259,11 @@ return [
     'dns' => [
         'record_type' => DNS_A,
         'cache_ttl'   => env('ASN_DNS_CACHE_TTL', 3600),
+    ],
+
+    // Required when using the "ipinfo" provider
+    'ipinfo' => [
+        'token' => env('ASN_IPINFO_TOKEN'),
     ],
 ];
 ```

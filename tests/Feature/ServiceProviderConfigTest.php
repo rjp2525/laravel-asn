@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Reno\ASN\AsnManager;
 use Reno\ASN\Contracts\AsnProvider;
 use Reno\ASN\Exceptions\AsnLookupException;
+use Reno\ASN\Providers\IpInfoProvider;
 use Reno\ASN\Providers\RipeStatProvider;
 
 it('resolves RipeStat provider when configured', function (): void {
@@ -25,6 +26,19 @@ it('throws for invalid provider configuration', function (): void {
 
     resolve(AsnProvider::class);
 })->throws(AsnLookupException::class);
+
+it('resolves IPinfo provider when configured', function (): void {
+    config([
+        'asn.provider' => 'ipinfo',
+        'asn.ipinfo.token' => 'test-token',
+    ]);
+
+    $this->app->forgetInstance(AsnProvider::class);
+
+    $provider = resolve(AsnProvider::class);
+
+    expect($provider)->toBeInstanceOf(IpInfoProvider::class);
+});
 
 it('uses custom cache store when configured', function (): void {
     config(['asn.cache.store' => 'array']);
